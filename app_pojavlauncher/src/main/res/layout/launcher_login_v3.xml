@@ -185,6 +185,16 @@
             app:layout_constraintTop_toBottomOf="@+id/mineButton" android:id="@+id/mineButton3"
             app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.372"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="47dp"
+        android:layout_height="32dp"
+        android:text="@string/mcn_exit_call"
+        android:textAllCaps="false"
+        android:textSize="10dp"
+        android:onClick="forceClose"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="781dp" />
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
