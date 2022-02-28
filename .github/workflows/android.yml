@@ -118,6 +118,43 @@ jobs:
           branch: buildjre17
           name: jre17-pojav
 
+      - name: Clean Artifacts Folder
+        run: |
+          rm -rf app_pojavlauncher/main/src/assets/artifacts/*
+
+      - name: Collect MCXR (mcxr-core)
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build.yml
+          path: app_pojavlauncher/src/main/assets/artifacts
+          workflow_conclusion: success
+          repo: QuestCraftPlusPlus/MCXR
+          branch: master
+          name: mcxr-core
+
+      - name: Collect MCXR (mcxr-play)
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build.yml
+          path: app_pojavlauncher/src/main/assets/artifacts
+          workflow_conclusion: success
+          repo: QuestCraftPlusPlus/MCXR
+          branch: master
+          name: mcxr-play
+
+      - name: Collect TitleWorlds
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build.yml
+          path: app_pojavlauncher/src/main/assets/artifacts
+          workflow_conclusion: success
+          repo: QuestCraftPlusPlus/TitleWorlds
+          branch: master
+          name: title-worlds
+
       - name: Build APK with Gradle
         run: |
           chmod +x scripts/languagelist_updater.sh

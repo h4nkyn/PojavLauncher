@@ -334,6 +334,7 @@ public class PojavLoginActivity extends BaseActivity
             mkdirs(Tools.DIR_GAME_NEW + "/mods");
             mkdirs(Tools.DIR_HOME_VERSION);
             mkdirs(Tools.DIR_HOME_LIBRARY);
+            mkdirs(Tools.DIR_HOME_VERSION + "/fabric");
         }
 
         mkdirs(Tools.CTRLMAP_PATH);
@@ -348,6 +349,12 @@ public class PojavLoginActivity extends BaseActivity
             Tools.copyAssetFile(this, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
             Tools.copyAssetFile(this,"resolv.conf",Tools.DIR_DATA, true);
             Tools.copyAssetFile(this,"arc_dns_injector.jar",Tools.DIR_DATA, true);
+            // Install Mods
+            Tools.copyAssetFile(this, "artifacts/mcxr-core-0.1.1+null.jar", DIR_GAME_NEW + "/mods", true);
+            Tools.copyAssetFile(this, "artifacts/mcxr-play-0.1.3+null.jar", DIR_GAME_NEW + "/mods", true);
+            Tools.copyAssetFile(this, "artifacts/titleworlds-0.0.1.jar", DIR_GAME_NEW + "/mods", true);
+            Tools.copyAssetFile(this, "artifacts/lazydfu-0.1.3-SNAPSHOT.jar", DIR_GAME_NEW + "/mods", true);
+            Tools.copyAssetFile(this, "jsons/fabric-loader-0.13.3.json", DIR_GAME_NEW + "/versions/fabric", true);
             AssetManager am = this.getAssets();
             
             unpackComponent(am, "caciocavallo");
