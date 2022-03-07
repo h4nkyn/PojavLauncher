@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch;
 import android.annotation.SuppressLint;
 import android.app.*;
 import android.content.*;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.net.*;
 import android.os.*;
@@ -496,19 +497,23 @@ public final class Tools {
         return px / currentDisplayMetrics.density;
     }
 
-    public static void copyAssetFile(Context ctx, String fileName, String output, boolean overwrite) throws IOException {
-        copyAssetFile(ctx, fileName, output, new File(fileName).getName(), overwrite);
+    public static void copyAssetFile(Context ctx, String fileName, String output, boolean overwrite, boolean folder) throws IOException {
+        copyAssetFile(ctx, fileName, output, new File(fileName).getName(), overwrite, folder);
     }
 
-    public static void copyAssetFile(Context ctx, String fileName, String output, String outputName, boolean overwrite) throws IOException
+    public static void copyAssetFile(Context ctx, String fileName, String output, String outputName, boolean overwrite, boolean folder) throws IOException
     {
+        AssetManager am = ctx.getAssets();
         File file = new File(output);
-        if(!file.exists()) {
-            file.mkdirs();
-        }
+        File file1 = new File(fileName);
         File file2 = new File(output, outputName);
-        if(!file2.exists() || overwrite){
-            write(file2.getAbsolutePath(), loadFromAssetToByte(ctx, fileName));
+        if (!folder) {
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            if (!file2.exists() || overwrite) {
+                write(file2.getAbsolutePath(), loadFromAssetToByte(ctx, fileName));
+            }
         }
     }
 

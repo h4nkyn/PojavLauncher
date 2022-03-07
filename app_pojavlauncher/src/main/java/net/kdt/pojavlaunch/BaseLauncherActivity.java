@@ -53,7 +53,7 @@ public abstract class BaseLauncherActivity extends BaseActivity {
      */
     public void resetOptionsTXT(View view){
         try {
-            Tools.copyAssetFile(view.getContext(), "options.txt", DIR_GAME_NEW, true);
+            Tools.copyAssetFile(view.getContext(), "options.txt", DIR_GAME_NEW, true, false);
         } catch (IOException exception) {
             exception.printStackTrace();
         }

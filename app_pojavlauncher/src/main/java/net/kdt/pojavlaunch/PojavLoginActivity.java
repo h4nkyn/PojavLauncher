@@ -272,7 +272,7 @@ public class PojavLoginActivity extends BaseActivity
         PojavProfile.setCurrentProfile(this, null);
     }
 
-   
+
     private void unpackComponent(AssetManager am, String component) throws IOException {
         File versionFile = new File(Tools.DIR_GAME_HOME + "/" + component + "/version");
         InputStream is = am.open("components/" + component + "/version");
@@ -285,7 +285,7 @@ public class PojavLoginActivity extends BaseActivity
             Log.i("UnpackPrep", component + ": Pack was installed manually, or does not exist, unpacking new...");
             String[] fileList = am.list("components/" + component);
             for(String s : fileList) {
-                Tools.copyAssetFile(this, "components/" + component + "/" + s, Tools.DIR_GAME_HOME + "/" + component, true);
+                Tools.copyAssetFile(this, "components/" + component + "/" + s, Tools.DIR_GAME_HOME + "/" + component, true, false);
             }
         } else {
             FileInputStream fis = new FileInputStream(versionFile);
@@ -299,7 +299,7 @@ public class PojavLoginActivity extends BaseActivity
                 
                 String[] fileList = am.list("components/" + component);
                 for (String s : fileList) {
-                    Tools.copyAssetFile(this, "components/" + component + "/" + s, Tools.DIR_GAME_HOME + "/" + component, true);
+                    Tools.copyAssetFile(this, "components/" + component + "/" + s, Tools.DIR_GAME_HOME + "/" + component, true, false);
                 }
             } else {
                 Log.i("UnpackPrep", component + ": Pack is up-to-date with the launcher, continuing...");
@@ -332,9 +332,10 @@ public class PojavLoginActivity extends BaseActivity
         if (!PojavMigrator.migrateGameDir()) {
             mkdirs(Tools.DIR_GAME_NEW);
             mkdirs(Tools.DIR_GAME_NEW + "/mods");
+            mkdirs(Tools.DIR_GAME_NEW + "/titleworlds");
             mkdirs(Tools.DIR_HOME_VERSION);
             mkdirs(Tools.DIR_HOME_LIBRARY);
-            mkdirs(Tools.DIR_HOME_VERSION + "/fabric");
+            mkdirs(Tools.DIR_HOME_VERSION + "/fabric-loader-0.12.12-1.18.1");
         }
 
         mkdirs(Tools.CTRLMAP_PATH);
@@ -342,21 +343,26 @@ public class PojavLoginActivity extends BaseActivity
         try {
             new CustomControls(this).save(Tools.CTRLDEF_FILE);
 
-            Tools.copyAssetFile(this, "components/security/pro-grade.jar", Tools.DIR_DATA, true);
-            Tools.copyAssetFile(this, "components/security/java_sandbox.policy", Tools.DIR_DATA, true);
-            Tools.copyAssetFile(this, "options.txt", Tools.DIR_GAME_NEW, false);
+            Tools.copyAssetFile(this, "components/security/pro-grade.jar", Tools.DIR_DATA, true, false);
+            Tools.copyAssetFile(this, "components/security/java_sandbox.policy", Tools.DIR_DATA, true, false);
+            Tools.copyAssetFile(this, "options.txt", Tools.DIR_GAME_NEW, false, false);
             // TODO: Remove after implement.
-            Tools.copyAssetFile(this, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
-            Tools.copyAssetFile(this,"resolv.conf",Tools.DIR_DATA, true);
-            Tools.copyAssetFile(this,"arc_dns_injector.jar",Tools.DIR_DATA, true);
+            Tools.copyAssetFile(this, "launcher_profiles.json", Tools.DIR_GAME_NEW, false, false);
+            Tools.copyAssetFile(this,"resolv.conf",Tools.DIR_DATA, true, false);
+            Tools.copyAssetFile(this,"arc_dns_injector.jar",Tools.DIR_DATA, true, false);
             // Install Mods
-            Tools.copyAssetFile(this, "artifacts/mcxr-core-0.1.1+null.jar", DIR_GAME_NEW + "/mods", true);
-            Tools.copyAssetFile(this, "artifacts/mcxr-play-0.1.3+null.jar", DIR_GAME_NEW + "/mods", true);
-            Tools.copyAssetFile(this, "artifacts/titleworlds-0.0.1.jar", DIR_GAME_NEW + "/mods", true);
-            Tools.copyAssetFile(this, "artifacts/lazydfu-0.1.3-SNAPSHOT.jar", DIR_GAME_NEW + "/mods", true);
-            Tools.copyAssetFile(this, "jsons/fabric-loader-0.13.3.json", DIR_GAME_NEW + "/versions/fabric", true);
+            Tools.copyAssetFile(this, "artifacts/mcxr-core-0.1.1+build.6.jar", DIR_GAME_NEW + "/mods", true, false);
+            Tools.copyAssetFile(this, "artifacts/mcxr-play-0.1.3null.jar", DIR_GAME_NEW + "/mods", true, false);
+            Tools.copyAssetFile(this, "artifacts/titleworlds-0.0.1.jar", DIR_GAME_NEW + "/mods", true, false);
+            Tools.copyAssetFile(this, "artifacts/lazydfu-0.1.2.jar", DIR_GAME_NEW + "/mods", true, false);
+            //Tools.copyAssetFile(this, "artifacts/fabric-api-0.45.0+1.18.jar", DIR_GAME_NEW + "/mods", true, false);
+            //Tools.copyAssetFile(this, "artifacts/TitleWorlds.zip", DIR_GAME_NEW + "/titleworlds", true, false);
+            //Tools.ZipTool.unzip(new File(DIR_GAME_NEW + "/titleworlds/TitleWorlds.zip"), new File(DIR_GAME_NEW + "/titleworlds"));
+            //Tools.deleteFile(DIR_GAME_NEW+"/titleworlds/", "TitleWorlds.zip");
+            Tools.copyAssetFile(this, "jsons/fabric-loader-0.12.12-1.18.1.json", DIR_GAME_NEW + "/versions/fabric-loader-0.12.12-1.18.1", true, false);
+            Tools.copyAssetFile(this, "artifacts/fabric-loader-0.12.12-1.18.1.jar", DIR_GAME_NEW + "/versions/fabric-loader-0.12.12-1.18.1", true, false);
             AssetManager am = this.getAssets();
-            
+
             unpackComponent(am, "caciocavallo");
             unpackComponent(am, "lwjgl3");
             if(!installRuntimeAutomatically(am,MultiRTUtils.getRuntimes().size() > 0)) {
@@ -365,27 +371,27 @@ public class PojavLoginActivity extends BaseActivity
                     mLockSelectJRE.wait();
                 }
             }
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.RECORD_AUDIO)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                //When permission is not granted by user, show them message why this permission is needed.
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        Manifest.permission.RECORD_AUDIO)) {
-                    Toast.makeText(this, "Please grant permissions to record audio", Toast.LENGTH_LONG).show();
-
-                    //Give user option to still opt-in the permissions
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.RECORD_AUDIO},
-                            MY_PERMISSIONS_RECORD_AUDIO);
-
-                } else {
-                    // Show user dialog to grant permission to record audio
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.RECORD_AUDIO},
-                            MY_PERMISSIONS_RECORD_AUDIO);
-                }
-            }
+//            if (ContextCompat.checkSelfPermission(this,
+//                    Manifest.permission.RECORD_AUDIO)
+//                    != PackageManager.PERMISSION_GRANTED) {
+//
+//                //When permission is not granted by user, show them message why this permission is needed.
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                        Manifest.permission.RECORD_AUDIO)) {
+//                    Toast.makeText(this, "Please grant permissions to record audio", Toast.LENGTH_LONG).show();
+//
+//                    //Give user option to still opt-in the permissions
+//                    ActivityCompat.requestPermissions(this,
+//                            new String[]{Manifest.permission.RECORD_AUDIO},
+//                            MY_PERMISSIONS_RECORD_AUDIO);
+//
+//                } else {
+//                    // Show user dialog to grant permission to record audio
+//                    ActivityCompat.requestPermissions(this,
+//                            new String[]{Manifest.permission.RECORD_AUDIO},
+//                            MY_PERMISSIONS_RECORD_AUDIO);
+//                }
+//            }
             if(Build.VERSION.SDK_INT > 28) runOnUiThread(this::showStorageDialog);
             LauncherPreferences.loadPreferences(getApplicationContext());
         }
