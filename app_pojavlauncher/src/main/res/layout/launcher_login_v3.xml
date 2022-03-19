@@ -178,7 +178,7 @@
     <Button
         android:layout_width="47dp"
         android:layout_height="32dp"
-        android:onClick="forceClose"
+        android:onClick="systemExit"
         android:text="@string/mcn_exit_call"
         android:textAllCaps="false"
         android:textSize="10dp"

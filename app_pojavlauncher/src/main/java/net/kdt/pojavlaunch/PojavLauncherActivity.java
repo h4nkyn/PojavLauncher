@@ -4,7 +4,6 @@ import static android.os.Build.VERSION_CODES.P;
 import static net.kdt.pojavlaunch.Tools.ignoreNotch;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_HIDE_SIDEBAR;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
-
 import android.animation.ValueAnimator;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -44,6 +43,10 @@ import java.util.List;
 
 public class PojavLauncherActivity extends BaseLauncherActivity
 {
+
+    public void systemExit(View view) {
+        System.exit(0);
+    }
 
     // An equivalent ViewPager2 adapter class
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter {
