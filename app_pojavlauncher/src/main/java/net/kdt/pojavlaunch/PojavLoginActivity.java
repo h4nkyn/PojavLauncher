@@ -356,7 +356,7 @@ public class PojavLoginActivity extends BaseActivity
             Tools.copyAssetFile(this, "artifacts/titleworlds-0.0.1.jar", DIR_GAME_NEW + "/mods", true, false);
             Tools.copyAssetFile(this, "artifacts/lazydfu-0.1.2.jar", DIR_GAME_NEW + "/mods", true, false);
             //Tools.copyAssetFile(this, "artifacts/fabric-api-0.45.0+1.18.jar", DIR_GAME_NEW + "/mods", true, false);
-            //Tools.copyAssetFile(this, "artifacts/TitleWorlds.zip", DIR_GAME_NEW + "/titleworlds", true, false);
+            Tools.copyAssetFile(this, "artifacts/TitleWorlds", DIR_GAME_NEW + "/titleworlds", true, false);
             //Tools.ZipTool.unzip(new File(DIR_GAME_NEW + "/titleworlds/TitleWorlds.zip"), new File(DIR_GAME_NEW + "/titleworlds"));
             //Tools.deleteFile(DIR_GAME_NEW+"/titleworlds/", "TitleWorlds.zip");
             Tools.copyAssetFile(this, "jsons/fabric-loader-0.12.12-1.18.1.json", DIR_GAME_NEW + "/versions/fabric-loader-0.12.12-1.18.1", true, false);

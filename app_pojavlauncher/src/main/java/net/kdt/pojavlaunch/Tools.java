@@ -515,6 +515,27 @@ public final class Tools {
                 write(file2.getAbsolutePath(), loadFromAssetToByte(ctx, fileName));
             }
         }
+        if (folder){
+            //Copy all files in folder
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            String[] files = am.list(fileName);
+            for (String fileName1 : files) { //loop through the files
+                File file3 = new File(output, fileName1);
+                if (!file3.exists() || overwrite) {
+                    write(file3.getAbsolutePath(), loadFromAssetToByte(ctx, fileName + "/" + fileName1));
+                }
+                // if folder, recursively call this method
+                if (fileName1.endsWith("/")){
+                    copyAssetFile(ctx, fileName + "/" + fileName1, output, fileName1, overwrite, true);
+                }
+            }
+
+        }
+    }
+    public static void copyFolder(Context ctx, String folderName, String output, String outputName, boolean overwrite){
+
     }
 
     public static void showError(Context ctx, Throwable e) {
