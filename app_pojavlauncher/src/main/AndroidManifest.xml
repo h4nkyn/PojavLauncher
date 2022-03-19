@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:name=".PojavApplication"
         android:theme="@style/AppTheme"
-        android:label="@string/app_name"
+        android:label="QuestCraft"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:resizeableActivity="true"
@@ -64,12 +64,12 @@
         </activity>
 
         <activity
-            android:theme="@style/MenuDialog"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog"
             android:screenOrientation="sensorLandscape"
             android:name=".FatalErrorActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"/>
         <activity
-            android:theme="@style/MenuDialog"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog"
             android:screenOrientation="sensorLandscape"
             android:name=".ExitActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"/>
