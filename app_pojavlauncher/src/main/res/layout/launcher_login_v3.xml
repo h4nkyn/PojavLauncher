@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="-10dp"
-            android:src="@drawable/sign_in_background"
+            android:src="@drawable/ic_setting_sign_in_background"
             android:scaleType="centerCrop"
             android:id="@+id/imageView2" tools:layout_editor_absoluteY="0dp" tools:layout_editor_absoluteX="0dp"/>
     <Spinner
@@ -116,17 +116,6 @@
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
-    <CheckBox
-        android:id="@+id/login_switch_offline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:clickable="false"
-        android:visibility="invisible"
-        android:text="@string/login_offline_label"
-        app:layout_constraintStart_toStartOf="@+id/login_switch_remember"
-        app:layout_constraintTop_toBottomOf="@+id/login_switch_remember" />
-
     <com.kdt.mcgui.MineButton
         android:id="@+id/mineButton"
         android:layout_width="0dp"
@@ -205,7 +194,7 @@
         android:scaleY="0.5"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/questcraftxp" />
 
